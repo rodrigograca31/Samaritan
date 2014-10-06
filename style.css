@@ -34,6 +34,9 @@ p {
     margin-top: 0;
     margin-bottom: 0;
 }
+#main p.hidden {
+    color: #000;
+}
 #marker {
     position: absolute;
     display: block;
@@ -45,4 +48,17 @@ p {
     color: #F00;
     font-size: 2em;
     font-family: "magdacleanmono";
+}
+
+@media(min-width: 900px){
+
+#main p.hidden {
+    color: #fff;
+}
+body {
+    color: #000 !important;
+    background-color: #fff;
+}
+#main hr { border-top: 2px solid #000; }
+
 }

@@ -11,4 +11,4 @@ Original author:
 Rodrigo Graça
 
 Modifications by:
-Jeiel Aranal
+Jeiel Aranal [@chemikhazi](http://twitter.com/chemikhazi)
