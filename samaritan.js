@@ -1,7 +1,10 @@
 $State = {
     isText: false,
     wordTime: 750, // Time to display a word
-    wordAnim: 150 // Time to animate a word
+    wordAnim: 150, // Time to animate a word
+    randomInterval: 18000,
+    isRandomized: false,
+    lastRandomIndex: -1
 };
 
 // From Stack Overflow
@@ -82,14 +85,24 @@ var runRandomPhrase = function()
 {
     // Get a random phrase and execute samaritan
     var randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+    while (randomIndex == $State.lastRandomIndex)
+        randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+    $State.lastRandomIndex = randomIndex;
     executeSamaritan($State.phraselist[randomIndex]);
 }
 
 var randomTimePhrase = function()
 {
-    var randomTime = Math.floor(Math.random() * (3 - 0));
-    randomTime += 9000;
-    setTimeout(runRandomPhrase, randomTime);
+    if ($State.isRandomized)
+        return;
+    var randomTime = Math.floor(Math.random() * (3000 - 0));
+    randomTime += $State.randomInterval;
+    console.log("Next message in " + (randomTime/1000));
+    setTimeout(function(){
+        $State.isRandomized = false
+        runRandomPhrase();
+    }, randomTime);
+    $State.isRandomized = true;
 }
 
 var executeSamaritan = function(phrase)
@@ -143,6 +156,8 @@ var executeSamaritan = function(phrase)
                     // Once complete, blink the triangle again and animate the line to original size
                     'done': function(){
                         $State.isText = false;
+                        randomTimePhrase();
+
                         blinkTriangle();
                         $State.line.animate({
                             'width' : "30px"
@@ -150,7 +165,6 @@ var executeSamaritan = function(phrase)
                             'duration': $State.wordAnim,
                             'start': $State.text.removeClass('hidden')
                         })
-                        randomTimePhrase();
                     }
                 });
             },
