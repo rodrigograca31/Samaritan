@@ -1,11 +1,14 @@
 Samaritan
 =========
-###Samaritan interface - [demo page](http://rodrigograca31.github.io/Samaritan/)
+###Samaritan interface - [demo page](http://chemikhazi.github.io/Samaritan/)
 
 Technologies:
 * HTML
 * CSS
 * JS
 
-Author:
+Original author:
 Rodrigo Graça
+
+Modifications by:
+Jeiel Aranal

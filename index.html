@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <link rel="icon" sizes="192x192" href="img/icon.png">
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="screenfull.min.js"></script>
         <script type="text/javascript">
             $State = {
                 isText: false,
@@ -36,6 +37,9 @@
                 }).done(function(phraselist){
                     $State.phraselist = phraselist;
                     $(document).bind('click', function(){
+                        if (screenfull.enabled && !screenfull.isFullscreen) {
+                            screenfull.request();
+                        }
                         var randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
                         executeSamaritan($State.phraselist[randomIndex]);
                     });
