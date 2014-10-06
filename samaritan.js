@@ -43,7 +43,8 @@ $(document).ready(function(){
     var urlMsg = getUrlParameter('msg');
     if (urlMsg !== undefined)
     {
-        urlMsg = urlMsg.split('%20').join(' ').split('%22').join('');
+        urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join("'");
+        $State.phraselist = [urlMsg];
         setTimeout(function(){executeSamaritan(urlMsg);}, $State.wordTime);
     }
 
@@ -53,6 +54,8 @@ $(document).ready(function(){
       url: "phraselist.json"
     }).done(function(phraselist){
         // Store the phrase list in the state
+        if ($State.phraselist !== undefined)
+            phraselist = phraselist.concat($State.phraselist);
         $State.phraselist = phraselist;
         // And then listen for a click on the document
         $(document).bind('click', function(){
@@ -60,10 +63,10 @@ $(document).ready(function(){
             if (screenfull.enabled && !screenfull.isFullscreen) {
                 screenfull.request();
             }
-            // Get a random phrase and execute samaritan
-            var randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
-            executeSamaritan($State.phraselist[randomIndex]);
+            runRandomPhrase();
         });
+        // And do a timed random phrase 
+        randomTimePhrase();
     });
 })
 
@@ -73,6 +76,20 @@ var blinkTriangle = function()
     if ($State.isText)
         return;
     $State.triangle.fadeTo(500, 0).fadeTo(500, 1, blinkTriangle);
+}
+
+var runRandomPhrase = function()
+{
+    // Get a random phrase and execute samaritan
+    var randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+    executeSamaritan($State.phraselist[randomIndex]);
+}
+
+var randomTimePhrase = function()
+{
+    var randomTime = Math.floor(Math.random() * (3 - 0));
+    randomTime += 9000;
+    setTimeout(runRandomPhrase, randomTime);
 }
 
 var executeSamaritan = function(phrase)
@@ -91,8 +108,12 @@ var executeSamaritan = function(phrase)
         'duration': $State.wordAnim,
         // Once animation triangle scale down is complete...
         'done': function() {
+            var timeStart = 0;
             // Create timers for each word
             phraseArray.forEach(function (word, i) {
+                var wordTime = $State.wordTime;
+                if (word.length > 8)
+                    wordTime *= (word.length / 8);
                 setTimeout(function(){
                     // Set the text to black, and put in the word
                     // so that the length can be measured
@@ -105,7 +126,8 @@ var executeSamaritan = function(phrase)
                         // When line starts anmating, set text to white again
                         'start': $State.text.removeClass('hidden')
                     })
-                }, (i * $State.wordTime) - $State.wordAnim)
+                }, (timeStart + $State.wordAnim));
+                timeStart += wordTime;
             });
 
             // Set a final timer to hide text and show triangle
@@ -128,10 +150,11 @@ var executeSamaritan = function(phrase)
                             'duration': $State.wordAnim,
                             'start': $State.text.removeClass('hidden')
                         })
+                        randomTimePhrase();
                     }
                 });
             },
-            phraseArray.length * $State.wordTime);
+            timeStart + $State.wordTime);
         }
     });
 }
