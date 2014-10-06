@@ -43,7 +43,7 @@ $(document).ready(function(){
     var urlMsg = getUrlParameter('msg');
     if (urlMsg !== undefined)
     {
-        urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join('');
+        urlMsg = urlMsg.split('%20').join(' ').split('%22').join('');
         setTimeout(function(){executeSamaritan(urlMsg);}, $State.wordTime);
     }
 
