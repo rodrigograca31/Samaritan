@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Samaritan</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var phrase = "? Person of Interest is awesome";
+                var phraseArray = phrase.split(" ");
+                setInterval(function(){
+                    phraseArray.forEach(function (word) {
+                        $("#main hr").animate({
+                            "width": ((word.length * 9) + 18) + "px" //the size of each character + the size of 2 characters
+                        }, {
+                            duration: 150,
+                            start: function () {
+                                $('#main p').text(word);
+                            }
+                        }).delay(850);
+                    });
+                }, 1000); //repeate time depends on the word count times 1 second
+                setInterval(function(){
+                    $('#main img').fadeTo(500, 0).fadeTo(500, 1);
+                }, 1000);
+            });
+        </script>
+        <style>
+            @font-face {
+                font-family: magdacleanmono;
+                src: url(font/magdacleanmono-bold.ttf);
+            }
+            body {
+                background-color: #000;
+                font-family:"magdacleanmono";
+                text-transform: uppercase;
+                
+                display: table;
+                width: 100%;
+                height: 100%;
+                position: fixed;
+            }
+            #main {
+                color: #FFF;
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+            #main hr {
+                width: 30px; /* default initial size */
+            }
+            #main p, #main hr {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            #main hr {
+                border-top: 2px solid #FFF;
+                border-bottom: none;
+            }
+            #main p {
+                display: block !important;
+                font-weight: bold;
+            }
+            #main img{
+                width: 15px;
+                margin-top: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <p>&nbsp;</p>
+            <hr />
+            <img src="imgs/triangle.png" alt="triangle" />
+        </div>
+    </body>
+</html>
