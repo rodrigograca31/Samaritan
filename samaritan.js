@@ -97,7 +97,6 @@ var randomTimePhrase = function()
         return;
     var randomTime = Math.floor(Math.random() * (3000 - 0));
     randomTime += $State.randomInterval;
-    console.log("Next message in " + (randomTime/1000));
     setTimeout(function(){
         $State.isRandomized = false
         runRandomPhrase();
