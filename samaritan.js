@@ -4,7 +4,8 @@ $State = {
     wordAnim: 150, // Time to animate a word
     randomInterval: 18000,
     lastRandomIndex: -1,
-    randomTimer: null
+    randomTimer: null,
+    lastMouseUp: -1
 };
 
 // From Stack Overflow
@@ -60,14 +61,18 @@ $(document).ready(function(){
         if ($State.phraselist !== undefined)
             phraselist = phraselist.concat($State.phraselist);
         $State.phraselist = phraselist;
-        // And then listen for a click on the document
-        $(document).bind('click', function(){
-            // Go fullscreen if not yet
-            if (screenfull.enabled && !screenfull.isFullscreen) {
-                screenfull.request();
+
+        $(document).bind("mouseup", function(){
+            if ((Date.now() - $State.lastMouseUp) <= 500)
+            {
+                console.log("DblClick");
+                if (screenfull.enabled) {
+                    screenfull.toggle();
+                }
             }
-            runRandomPhrase();
-        });
+            $State.lastMouseUp = Date.now();
+        }).bind("click", runRandomPhrase);
+
         // And do a timed random phrase 
         randomTimePhrase();
     });
