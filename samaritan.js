@@ -3,8 +3,8 @@ $State = {
     wordTime: 750, // Time to display a word
     wordAnim: 150, // Time to animate a word
     randomInterval: 18000,
-    isRandomized: false,
-    lastRandomIndex: -1
+    lastRandomIndex: -1,
+    randomTimer: null
 };
 
 // From Stack Overflow
@@ -93,15 +93,11 @@ var runRandomPhrase = function()
 
 var randomTimePhrase = function()
 {
-    if ($State.isRandomized)
-        return;
+    if ($State.randomTimer !== null)
+        clearTimeout($State.randomTimer);
     var randomTime = Math.floor(Math.random() * (3000 - 0));
     randomTime += $State.randomInterval;
-    setTimeout(function(){
-        $State.isRandomized = false
-        runRandomPhrase();
-    }, randomTime);
-    $State.isRandomized = true;
+    $State.randomTimer = setTimeout( runRandomPhrase, randomTime);
 }
 
 var executeSamaritan = function(phrase)
