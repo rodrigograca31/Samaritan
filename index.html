@@ -3,86 +3,26 @@
     <head>
         <title>Samaritan</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="Samaritan">
-        <link rel="icon" sizes="57x57" href="imgs/triangle.png">
-        <link rel="apple-touch-icon-precomposed" href="imgs/triangle.png" sizes="57x57">
-        <link rel="shortcut icon" type="image/png" href="/imgs/triangle.png"/>
-        
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+        <link rel="icon" sizes="192x192" href="img/icon.png">
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                var phrase = "? Person of Interest is awesome";
-                var phraseArray = phrase.split(" ");
-                setInterval(function(){
-                    phraseArray.forEach(function (word) {
-                        $("#main hr").animate({
-                            "width": ((word.length * 9) + 18) + "px" //the size of each character + the size of 2 characters
-                        }, {
-                            duration: 150,
-                            start: function () {
-                                $('#main p').text(word);
-                            }
-                        }).delay(850);
-                    });
-                }, 1000); //repeate time depends on the word count times 1 second
-                setInterval(function(){
-                    $('#main img').fadeTo(500, 0).fadeTo(500, 1);
-                }, 1000);
-            });
-        </script>
-        <style>
-            @font-face {
-                font-family: magdacleanmono;
-                src: url(font/magdacleanmono-bold.ttf);
-            }
-            body {
-                background-color: #000;
-                font-family:"magdacleanmono";
-                text-transform: uppercase;
-                margin: 0;
-                padding: 0;
-                
-                display: table;
-                width: 100%;
-                height: 100%;
-                position: fixed;
-            }
-            #main {
-                color: #FFF;
-                display: table-cell;
-                text-align: center;
-                vertical-align: middle;
-            }
-            #main hr {
-                width: 30px; /* default initial size */
-            }
-            #main p, #main hr {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-            #main hr {
-                border-top: 2px solid #FFF;
-                border-bottom: none;
-            }
-            #main p {
-                display: block !important;
-                font-weight: bold;
-            }
-            #main img{
-                width: 15px;
-                margin-top: 2px;
-            }
-        </style>
+        <script type="text/javascript" src="screenfull.min.js"></script>
+        <script type="text/javascript" src="samaritan.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+        <section contextmenu="mymenu">
+            <menu type="context">
+                <menuitem label="Fullscreen" id="ctx-fullscreen"></menuitem>
+            </menu>
+        </section>
         <div id="main">
             <p>&nbsp;</p>
             <hr />
-            <img src="imgs/triangle.png" alt="triangle" />
+        </div>
+        <div id="marker">
+            <span id="triangle">&#9650</span>
         </div>
     </body>
 </html>

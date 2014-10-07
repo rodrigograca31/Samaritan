@@ -1,0 +1,74 @@
+@font-face {
+    font-family: magdacleanmono;
+    src: url(font/magdacleanmono-bold.ttf);
+}
+body {
+    color: #FFF;
+    background-color: #000;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+p {
+    font-family:"magdacleanmono";
+    font-size: 2em;
+    text-transform: uppercase;
+    display: block !important;
+}
+#main {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 50%;
+}
+#main hr {
+    width: 30px; /* default initial size */
+    border-top: 2px solid #FFF;
+    border-bottom: none;
+}
+#main p, #main hr {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#main p.hidden {
+    color: #000;
+}
+#marker {
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 50%;
+    vertical-align: top;
+}
+#triangle {
+    color: #F00;
+    font-size: 2em;
+    font-family: "magdacleanmono";
+}
+
+#settings {
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color: #444;
+}
+
+@media(min-width: 900px){
+
+#main p.hidden {
+    color: #fff;
+}
+body {
+    color: #000 !important;
+    background-color: #fff;
+}
+#main hr { border-top: 2px solid #000; }
+
+}
