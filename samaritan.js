@@ -34,6 +34,15 @@ function getUrlParameter(sParam)
     }
 }     
 
+function processMessageFromHash()
+{
+    var message = decodeURIComponent(window.location.hash.slice(1));
+    if (message)
+    {
+        setTimeout(function(){executeSamaritan(message);}, $State.wordTime);
+    }
+}
+
 $(document).ready(function(){
     // Cache the jquery things
     $State.triangle = $('#triangle');
@@ -51,6 +60,14 @@ $(document).ready(function(){
         $State.phraselist = [urlMsg];
         setTimeout(function(){executeSamaritan(urlMsg);}, $State.wordTime);
     }
+    else
+    {
+      // Message from URL fragment
+      processMessageFromHash();
+    }
+
+    // Show a new message whenever the URL fragment changes
+    $(window).on('hashchange', processMessageFromHash);
 
     // Pull up the phrase list file
     $.ajax({
