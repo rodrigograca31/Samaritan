@@ -24,15 +24,15 @@ function getUrlParameter(sParam)
 {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) 
+    for (var i = 0; i < sURLVariables.length; i++)
     {
         var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
+        if (sParameterName[0] == sParam)
         {
             return sParameterName[1];
         }
     }
-}     
+}
 
 function processMessageFromHash()
 {
@@ -48,7 +48,7 @@ $(document).ready(function(){
     $State.triangle = $('#triangle');
     $State.text  = $('#main p');
     $State.line = $('#main hr');
-    
+
     // Start the triangle blinking
     blinkTriangle();
 
@@ -69,30 +69,24 @@ $(document).ready(function(){
     // Show a new message whenever the URL fragment changes
     $(window).on('hashchange', processMessageFromHash);
 
-    // Pull up the phrase list file
-    $.ajax({
-      dataType: "json",
-      url: "phraselist.json"
-    }).done(function(phraselist){
-        // Store the phrase list in the state
-        if ($State.phraselist !== undefined)
-            phraselist = phraselist.concat($State.phraselist);
-        $State.phraselist = phraselist;
+    // Store the phrase list in the state
+    if ($State.phraselist !== undefined)
+      phraselist = phraselist.concat($State.phraselist);
+    $State.phraselist = phraselist;
 
-        $(document).bind("mouseup", function(){
-            if ((Date.now() - $State.lastMouseUp) <= 500)
-            {
-                console.log("DblClick");
-                if (screenfull.enabled) {
-                    screenfull.toggle();
-                }
+    $(document).bind("mouseup", function(){
+        if ((Date.now() - $State.lastMouseUp) <= 500)
+        {
+            console.log("DblClick");
+            if (screenfull.enabled) {
+                screenfull.toggle();
             }
-            $State.lastMouseUp = Date.now();
-        }).bind("click", runRandomPhrase);
+        }
+        $State.lastMouseUp = Date.now();
+    }).bind("click", runRandomPhrase);
 
-        // And do a timed random phrase 
-        randomTimePhrase();
-    });
+    // And do a timed random phrase
+    randomTimePhrase();
 })
 
 var blinkTriangle = function()
