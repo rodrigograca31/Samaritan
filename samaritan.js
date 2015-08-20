@@ -101,8 +101,10 @@ var runRandomPhrase = function()
 {
     // Get a random phrase and execute samaritan
     var randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
-    while (randomIndex == $State.lastRandomIndex)
+    if($State.phraselist.length > 1){
+      while (randomIndex == $State.lastRandomIndex)
         randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+    }
     $State.lastRandomIndex = randomIndex;
     executeSamaritan($State.phraselist[randomIndex]);
 }
