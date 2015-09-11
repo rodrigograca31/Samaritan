@@ -100,10 +100,17 @@ var blinkTriangle = function()
 var runRandomPhrase = function()
 {
     // Get a random phrase and execute samaritan
-    var randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+    var randomIndex = 0;
     if($State.phraselist.length > 1){
-      while (randomIndex == $State.lastRandomIndex)
-        randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+        if(getUrlParameter('random') == 'false'){ //if random parameter is set to false
+            if($State.lastRandomIndex+1 != $State.phraselist.length){ //if it's not the last one
+                randomIndex = $State.lastRandomIndex+1;
+            }
+        } else {
+            randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+            while (randomIndex == $State.lastRandomIndex)
+                randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
+        }
     }
     $State.lastRandomIndex = randomIndex;
     executeSamaritan($State.phraselist[randomIndex]);
