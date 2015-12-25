@@ -5,5 +5,5 @@ var phraselist = [
 "Calculating Response",
 "There is no alternative.",
 "Find the Machine",
-"Stop it. Now."
+"Not yet"
 ]
