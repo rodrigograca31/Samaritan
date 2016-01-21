@@ -1,9 +1,7 @@
 var phraselist = [
-"I will protect you now",
-"What are your commands ?",
-"Investigation ongoing",
-"Calculating Response",
-"There is no alternative.",
-"Find the Machine",
-"Stop it. Now."
+"Identifying Humans. . .",
+"Anju Jha. Identified",
+"Prashant Diwakar. Identified.",
+"Locating Home. State:GA Zip:30041 Precise Coordinates Unknown",
+"Waiting for Commands".
 ]
