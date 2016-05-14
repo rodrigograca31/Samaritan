@@ -98,8 +98,8 @@ var blinkTriangle = function()
       }
     //$State.line.fadeTo(500, 0).fadeTo(500, 1, blinkTriangle);
     x=Math.floor((Date.now()/500)%2)+0.5;
-    console.log(x);
-    console.log("hello world");
+    //console.log(x);
+    //console.log("hello world");
     $State.line.css("opacity",x.toString());
     window.requestAnimationFrame(blinkTriangle);
 }
