@@ -1,0 +1,17 @@
+{
+    "lang": "en",
+    "dir": "ltr",
+    "name": "Samaritan",
+    "description": "Samaritan in your phone/PC",
+    "short_name": "Samaritan",
+    "icons": [
+        {
+            "src": "img/icon.png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "theme_color": "black",
+    "background_color": "black"
+}
