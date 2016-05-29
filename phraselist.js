@@ -1,9 +1,9 @@
 var phraselist = [
-"I will protect you now",
+"How are you doing",
 "What are your commands ?",
 "Investigation ongoing",
 "Calculating Response",
 "There is no alternative.",
-"Find the Machine",
+"Hello Admin",
 "Stop it. Now."
 ]
