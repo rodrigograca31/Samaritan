@@ -1,17 +1,16 @@
 //https://mobiforge.com/design-development/taking-web-offline-service-workers
 // A list of paths to cache
 var paths = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '/phraselist.js',
-    '/samaritan.js',
-    '/jquery-1.11.0.min.js',
-    '/screenfull.min.js',
-    '/service-worker.js',
-    '/style.css',
-    '/font/magdacleanmono-bold.ttf',
-    '/img/icon.png'
+    'index.html',
+    'manifest.json',
+    'phraselist.js',
+    'samaritan.js',
+    'jquery-1.11.0.min.js',
+    'screenfull.min.js',
+    'service-worker.js',
+    'style.css',
+    'font/magdacleanmono-bold.ttf',
+    'img/icon.png'
 ];
 
 self.addEventListener('install', function(event) {
