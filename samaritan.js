@@ -92,16 +92,9 @@ $(document).ready(function(){
 var blinkTriangle = function()
 {
     // Stop blinking if samaritan is in action
-    if ($State.isText){
-        $State.line.css("opacity","1");
+    if ($State.isText)
         return;
-      }
-    //$State.line.fadeTo(500, 0).fadeTo(500, 1, blinkTriangle);
-    x=Math.floor((Date.now()/500)%2)+0.5;
-    //console.log(x);
-    //console.log("hello world");
-    $State.line.css("opacity",x.toString());
-    window.requestAnimationFrame(blinkTriangle);
+    $State.triangle.fadeTo(500, 0).fadeTo(500, 1, blinkTriangle);
 }
 
 var runRandomPhrase = function()
