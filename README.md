@@ -1,7 +1,6 @@
 Samaritan
 =========
-###Samaritan interface - [live version](https://alexandrusimandi.github.io/Samaritan/)
-###Original project - [demo page](http://rodrigograca31.github.io/Samaritan/)
+###[Samaritan 2.0!](https://rodrigograca31.github.io/Samaritan/)
 
 Technologies:
 * HTML
