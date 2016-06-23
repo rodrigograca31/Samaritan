@@ -1,19 +1,20 @@
 $(document).ready(function(){
 	setTimeout(function(){
 		executeSamaritan('what are your commands ?');
+//		executeSamaritanWrapper('adsasd')();
 	}, 1000);
 
 	var executeSamaritanWrapper = function(msg){
-		return function(){executeSamaritanWrapper(msg)};
+		return function(){executeSamaritan(msg)};
 	};
 
 	if (annyang) {
 
 		var commands = {
-			'hello (samaritan)': executeSamaritanWrapper('hello'),
+			'yes': executeSamaritanWrapper('yes?'),
+			'hello': executeSamaritanWrapper('hello'),
 			'who are you': executeSamaritanWrapper('i am samaritan !'),
 			'turn off': executeSamaritanWrapper('turning off'),
-			'reboot': executeSamaritanWrapper('rebooting'),
 			'restart': executeSamaritanWrapper('rebooting'),
 			'who created you': executeSamaritanWrapper("it's irrelevant"),
 			'find :name': function(name){
