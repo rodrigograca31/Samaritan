@@ -12,3 +12,5 @@ Rodrigo Graça
 
 Modifications by:
 Jeiel Aranal [@chemikhazi](http://twitter.com/chemikhazi)
+<br />
+Alexandru Simandi
