@@ -10,6 +10,12 @@ $(document).ready(function(){
 
 	if (annyang) {
 		var commands = {
+			'locate the machine': executeSamaritanWrapper('Target can not be reached !'),
+			'where are you': executeSamaritanWrapper("I am everywhere , i am god"),
+			'hello': executeSamaritanWrapper('hello'),
+			'who am I': executeSamaritanWrapper("Asset"),
+			'who are you': executeSamaritanWrapper('i am samaritan !'),
+ 			'find Finch': executeSamaritanWrapper('Locating Harold Finch ?'),
 			'yes': executeSamaritanWrapper('yes what ?'),
 			'no': executeSamaritanWrapper('ok then what is your suggestion ?'),
 			'hello': executeSamaritanWrapper('hello'),
@@ -20,21 +26,15 @@ $(document).ready(function(){
 			'who created you': executeSamaritanWrapper("it's irrelevant"),
 			'who won': executeSamaritanWrapper('team machine'),
 			'say my name': executeSamaritanWrapper('heisenberg'),
-			'find :name': function(name){
+			'find (me) *name': function(name){
 				executeSamaritan('searching for ' + name);
 			},
-			'search (for) :name': function(name){
+			'search (for) *name': function(name){
 				executeSamaritan('searching for ' + name);
 			},
-			//repeats words if it's not one of the above
-			':first :second :third': function(first, second, third){
-				executeSamaritan(first + ' ' + second + ' ' + third + ' ?');
-			},
-			':first :second': function(first, second){
-				executeSamaritan(first + ' ' + second + ' ?');
-			},
-			':word': function(word){
-				executeSamaritan(word + ' ?');
+			//repeats everything if it's not one of the above
+			'*phrase': function(phrase){
+				executeSamaritan(phrase);
 			}
 		};
 
