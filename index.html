@@ -33,12 +33,53 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div id="main">
-            <p>&nbsp;</p>
-            <hr />
-        </div>
-        <div id="marker">
-            <span id="triangle">&#9650</span>
+		<div id="boot-screen" style="margin: 0; height:100vh; pointer-events: none;">
+			<div id="boot-video"></div>
+			<script>
+				var tag = document.createElement('script');
+				tag.src = "https://www.youtube.com/player_api";
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+				// 3. This function creates an <iframe> (and YouTube player)
+				//    after the API code downloads.
+				var player;
+
+				function onYouTubePlayerAPIReady() {
+					player = new YT.Player('boot-video', {
+						height: '100%',
+						width: '100%',
+						videoId: 'xHAzhkIt0z4',
+						playerVars: {
+						autoplay: 1,
+							showinfo: 0,
+							iv_load_policy: 3,
+							controls: 0,
+							end: 4,
+							modestbranding: 1,
+							enablejsapi: 1,
+						},
+						events: {
+							'onReady': onPlayerReady
+						}
+					});
+				}
+
+				// 4. The API will call this function when the video player is ready.
+				function onPlayerReady(event) {
+					event.target.mute();
+				}
+			</script>
+
+		</div>
+        <div id="interface">
+			<div id="main">
+				<p>&nbsp;</p>
+				<hr />
+			</div>
+			<div id="marker">
+				<span id="triangle">&#9650</span>
+			</div>
         </div>
     </body>
 </html>

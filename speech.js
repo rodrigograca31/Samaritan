@@ -2,7 +2,7 @@ $(document).ready(function(){
 	setTimeout(function(){
 		executeSamaritan('what are your commands ?');
 //		executeSamaritanWrapper('adsasd')();
-	}, 700);
+	}, 5700);
 
 	var executeSamaritanWrapper = function(msg){
 		return function(){executeSamaritan(msg)};
