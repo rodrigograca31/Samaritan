@@ -1,13 +1,13 @@
 $(document).ready(function(){
-	setTimeout(function(){
-		executeSamaritan('what are your commands ?');
-	}, 10000);
-
 	var executeSamaritanWrapper = function(msg){
 		return function(){executeSamaritan(msg)};
 	};
 
 	if (annyang) {
+		setTimeout(function(){
+			executeSamaritan('what are your commands ?');
+		}, 10000);
+
 		var commands = {
 			'locate the machine': executeSamaritanWrapper('Target can not be reached !'),
 			'where are you': executeSamaritanWrapper("I am everywhere , i am god"),
@@ -38,6 +38,10 @@ $(document).ready(function(){
 
 		annyang.addCommands(commands);
 		annyang.start();
+	} else {
+		setTimeout(function(){
+			executeSamaritan('speech recognition not supported in this browser !');
+		}, 10000);
 	}
 
 });
