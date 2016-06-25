@@ -14,7 +14,7 @@
 		}
         if ('serviceWorker' in navigator) {
             console.log('CLIENT: service worker registration in progress.');
-            navigator.serviceWorker.register('service-worker.js').then(function() {
+            navigator.serviceWorker.register('js/service-worker.js').then(function() {
                 console.log('CLIENT: service worker registration complete.');
             }, function() {
                 console.log('CLIENT: service worker registration failure.');
@@ -24,13 +24,13 @@
         }
         </script>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-        <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="screenfull.min.js"></script>
-        <script type="text/javascript" src="phraselist.js"></script>
-        <script type="text/javascript" src="samaritan.js"></script>
-        <script type="text/javascript" src="annyang.min.js"></script>
-        <script type="text/javascript" src="speech.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="js/screenfull.min.js"></script>
+        <script type="text/javascript" src="js/phraselist.js"></script>
+        <script type="text/javascript" src="js/samaritan.js"></script>
+        <script type="text/javascript" src="js/annyang.min.js"></script>
+        <script type="text/javascript" src="js/speech.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
         <div id="main">
