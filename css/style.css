@@ -1,6 +1,7 @@
 @font-face {
     font-family: magdacleanmono;
-    src: url(font/magdacleanmono-bold.ttf);
+	src: url("font/magdacleanmono-regular-webfont.eot");
+  	src: url("font/magdacleanmono-regular-webfont.woff?#iefix") format("embedded-opentype"), url("font/magdacleanmono-regular-webfont.woff2") format("woff2"), url("font/magdacleanmono-regular-webfont.woff") format("woff"), url("font/magdacleanmono-regular-webfont.ttf") format("truetype");
 }
 body {
     color: #FFF;
