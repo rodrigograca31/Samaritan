@@ -7,22 +7,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="icon" sizes="192x192" href="img/icon.png">
 		<link rel="manifest" href="manifest.json">
-        <script type="text/javascript">
-		// Force https because it's required by the "Service Worker"
-		if (window.location.host.indexOf('github.io') > -1 && window.location.protocol != "https:"){
-			window.location.protocol = "https";
-		}
-        if ('serviceWorker' in navigator) {
-            console.log('CLIENT: service worker registration in progress.');
-            navigator.serviceWorker.register('service-worker.js').then(function() {
-                console.log('CLIENT: service worker registration complete.');
-            }, function() {
-                console.log('CLIENT: service worker registration failure.');
-            });
-        } else {
-            console.log('CLIENT: service worker is not supported.');
-        }
-        </script>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="screenfull.min.js"></script>
@@ -52,16 +36,16 @@
 						width: '100%',
 						videoId: 'xHAzhkIt0z4',
 						playerVars: {
-						autoplay: 1,
+							rel: 0,
+							autoplay: 1,
 							showinfo: 0,
 							iv_load_policy: 3,
 							controls: 0,
-							end: 4,
 							modestbranding: 1,
-							enablejsapi: 1,
+							enablejsapi: 1
 						},
 						events: {
-							'onReady': onPlayerReady
+							'onReady': onPlayerReady,
 						}
 					});
 				}

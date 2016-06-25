@@ -1,8 +1,7 @@
 $(document).ready(function(){
 	setTimeout(function(){
 		executeSamaritan('what are your commands ?');
-//		executeSamaritanWrapper('adsasd')();
-	}, 5700);
+	}, 10000);
 
 	var executeSamaritanWrapper = function(msg){
 		return function(){executeSamaritan(msg)};
@@ -25,7 +24,6 @@ $(document).ready(function(){
 			'restart': executeSamaritanWrapper('initiating reboot sequence'),
 			'who created you': executeSamaritanWrapper("it's irrelevant"),
 			'who won': executeSamaritanWrapper('team machine'),
-			'say my name': executeSamaritanWrapper('heisenberg'),
 			'find (me) *name': function(name){
 				executeSamaritan('searching for ' + name);
 			},

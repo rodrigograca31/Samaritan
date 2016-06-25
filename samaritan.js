@@ -46,9 +46,9 @@ function processMessageFromHash()
 $(document).ready(function(){
 	$('#interface').hide();
 	setTimeout(function(){
-		$('#boot-screen').hide();
-		$('#interface').show();
-	},5000);
+		$('#boot-screen').fadeOut(2400);
+		$('#interface').fadeIn(2400);
+	},7000);
 
     // Cache the jquery things
     $State.triangle = $('#triangle');
