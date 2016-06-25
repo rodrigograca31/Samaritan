@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	setTimeout(function(){
 		executeSamaritan('what are your commands ?');
-//		executeSamaritanWrapper('adsasd')();
 	}, 700);
 
 	var executeSamaritanWrapper = function(msg){
@@ -15,7 +14,7 @@ $(document).ready(function(){
 			'hello': executeSamaritanWrapper('hello'),
 			'who am I': executeSamaritanWrapper("Asset"),
 			'who are you': executeSamaritanWrapper('i am samaritan !'),
- 			'find Finch': executeSamaritanWrapper('Locating Harold Finch ?'),
+			'find Finch': executeSamaritanWrapper('Locating Harold Finch ?'),
 			'yes': executeSamaritanWrapper('yes what ?'),
 			'no': executeSamaritanWrapper('ok then what is your suggestion ?'),
 			'what are you': executeSamaritanWrapper('i am samaritan !'),
