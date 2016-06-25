@@ -18,8 +18,6 @@ $(document).ready(function(){
  			'find Finch': executeSamaritanWrapper('Locating Harold Finch ?'),
 			'yes': executeSamaritanWrapper('yes what ?'),
 			'no': executeSamaritanWrapper('ok then what is your suggestion ?'),
-			'hello': executeSamaritanWrapper('hello'),
-			'who are you': executeSamaritanWrapper('i am samaritan !'),
 			'what are you': executeSamaritanWrapper('i am samaritan !'),
 			'turn off': executeSamaritanWrapper('shutdown initiated'),
 			'restart': executeSamaritanWrapper('initiating reboot sequence'),
@@ -41,5 +39,4 @@ $(document).ready(function(){
 		annyang.addCommands(commands);
 		annyang.start();
 	}
-
 });
