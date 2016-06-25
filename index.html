@@ -12,16 +12,6 @@
 		if (window.location.host.indexOf('github.io') > -1 && window.location.protocol != "https:"){
 			window.location.protocol = "https";
 		}
-        if ('serviceWorker' in navigator) {
-            console.log('CLIENT: service worker registration in progress.');
-            navigator.serviceWorker.register('js/service-worker.js').then(function() {
-                console.log('CLIENT: service worker registration complete.');
-            }, function() {
-                console.log('CLIENT: service worker registration failure.');
-            });
-        } else {
-            console.log('CLIENT: service worker is not supported.');
-        }
         </script>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
