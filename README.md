@@ -1,6 +1,6 @@
 Samaritan
 =========
-###Live version - [live version](https://alexandrusimandi.github.io/Samaritan/)
+###[Live version](https://alexandrusimandi.github.io/Samaritan/)
 ###Original project - [demo page](https://github.com/rodrigograca31/Samaritan)
 
 Technologies:
