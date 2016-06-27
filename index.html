@@ -7,12 +7,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="icon" sizes="192x192" href="img/icon.png">
 		<link rel="manifest" href="manifest.json">
-        <script type="text/javascript">
-		// Force https because it's required by the "Service Worker"
-		if (window.location.host.indexOf('github.io') > -1 && window.location.protocol != "https:"){
-			window.location.protocol = "https";
-		}
-        </script>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="js/screenfull.min.js"></script>
@@ -20,15 +14,22 @@
         <script type="text/javascript" src="js/samaritan.js"></script>
         <script type="text/javascript" src="js/annyang.min.js"></script>
         <script type="text/javascript" src="js/speech.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <div id="main">
-            <p>&nbsp;</p>
-            <hr />
-        </div>
-        <div id="marker">
-            <span id="triangle">&#9650</span>
+		<div id="boot-screen" style="margin: 0; height:100vh; pointer-events: none;">
+			<div id="boot-video"></div>
+			<script type="text/javascript" src="js/boot-youtube.js"></script>
+		</div>
+        <div id="interface">
+			<div id="main">
+				<p>&nbsp;</p>
+				<hr />
+			</div>
+			<div id="marker">
+				<span id="triangle">&#9650</span>
+			</div>
         </div>
     </body>
 </html>
