@@ -65,11 +65,9 @@ $(document).ready(function(){
         urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join("'");
         $State.phraselist = [urlMsg];
         setTimeout(function(){executeSamaritan(urlMsg);}, $State.wordTime);
-    }
-    else
-    {
-      // Message from URL fragment
-      processMessageFromHash();
+    } else {
+		// Message from URL fragment
+		processMessageFromHash();
     }
 
     // Show a new message whenever the URL fragment changes
@@ -77,7 +75,7 @@ $(document).ready(function(){
 
     // Store the phrase list in the state
     if ($State.phraselist !== undefined)
-      phraselist = phraselist.concat($State.phraselist);
+		phraselist = phraselist.concat($State.phraselist);
     $State.phraselist = phraselist;
 
     $(document).bind("mouseup", function(){
