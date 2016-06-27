@@ -1,198 +1,201 @@
-$State = {
-    isText: false,
-    wordTime: 750, // Time to display a word
-    wordAnim: 150, // Time to animate a word
-    randomInterval: 18000,
-    lastRandomIndex: -1,
-    randomTimer: null,
-    lastMouseUp: -1
-};
+var samaritanModule = (function () {
 
-// From Stack Overflow
-// http://stackoverflow.com/questions/1582534/calculating-text-width-with-jquery
-$.fn.textWidth = function(){
-  var html_org = $(this).html();
-  var html_calc = '<span>' + html_org + '</span>';
-  $(this).html(html_calc);
-  var width = $(this).find('span:first').width();
-  $(this).html(html_org);
-  return width;
-};
+	_$State = {
+		isText: false,
+		wordTime: 750, // Time to display a word
+		wordAnim: 150, // Time to animate a word
+		randomInterval: 18000,
+		lastRandomIndex: -1,
+		randomTimer: null,
+		lastMouseUp: -1
+	};
 
-// http://stackoverflow.com/questions/19491336/get-url-parameter-jquery
-function getUrlParameter(sParam)
-{
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam)
-        {
-            return sParameterName[1];
-        }
-    }
-}
+	// From Stack Overflow
+	// http://stackoverflow.com/questions/1582534/calculating-text-width-with-jquery
+	$.fn.textWidth = function () {
+		var html_org = $(this).html();
+		var html_calc = '<span>' + html_org + '</span>';
+		$(this).html(html_calc);
+		var width = $(this).find('span:first').width();
+		$(this).html(html_org);
+		return width;
+	};
 
-function processMessageFromHash()
-{
-    var message = decodeURIComponent(window.location.hash.slice(1));
-    if (message)
-    {
-        setTimeout(function(){executeSamaritan(message);}, $State.wordTime);
-    }
-}
+	// http://stackoverflow.com/questions/19491336/get-url-parameter-jquery
+	var _getUrlParameter = function(sParam) {
+		var sPageURL = window.location.search.substring(1);
+		var sURLVariables = sPageURL.split('&');
+		for (var i = 0; i < sURLVariables.length; i++) {
+			var sParameterName = sURLVariables[i].split('=');
+			if (sParameterName[0] == sParam) {
+				return sParameterName[1];
+			}
+		}
+	}
 
-$(document).ready(function(){
-	$('#interface').hide();
-	setTimeout(function(){
-		$('#boot-screen').fadeOut(2400);
-		$('#interface').fadeIn(2400);
-	},7000);
+	var _processMessageFromHash = function() {
+		var message = decodeURIComponent(window.location.hash.slice(1));
+		if (message) {
+			setTimeout(function () {
+				write(message);
+			}, _$State.wordTime);
+		}
+	}
 
-    // Cache the jquery things
-    $State.triangle = $('#triangle');
-    $State.text  = $('#main p');
-    $State.line = $('#main hr');
+	var _blinkTriangle = function () {
+		// Stop blinking if samaritan is in action
+		if (_$State.isText)
+			return;
+		_$State.triangle.fadeTo(500, 0).fadeTo(500, 1, _blinkTriangle);
+	}
 
-    // Start the triangle blinking
-    blinkTriangle();
+	var _runRandomPhrase = function () {
+		// Get a random phrase and makes samaritan write
+		var randomIndex = 0;
+		if (_$State.phraselist.length > 1) {
+			if (_getUrlParameter('random') == 'false') { //if random parameter is set to false
+				if (_$State.lastRandomIndex + 1 != _$State.phraselist.length) { //if it's not the last one
+					randomIndex = _$State.lastRandomIndex + 1;
+				}
+			} else {
+				randomIndex = Math.floor(Math.random() * (_$State.phraselist.length - 0));
+				while (randomIndex == _$State.lastRandomIndex)
+					randomIndex = Math.floor(Math.random() * (_$State.phraselist.length - 0));
+			}
+		}
+		_$State.lastRandomIndex = randomIndex;
+		write(_$State.phraselist[randomIndex]);
+	}
 
-    // URL parameter message
-    var urlMsg = getUrlParameter('msg');
-    if (urlMsg !== undefined)
-    {
-        urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join("'");
-        $State.phraselist = [urlMsg];
-        setTimeout(function(){executeSamaritan(urlMsg);}, $State.wordTime);
-    } else {
-		// Message from URL fragment
-		processMessageFromHash();
-    }
+	var _randomTimePhrase = function () {
+		if (_$State.randomTimer !== null)
+			clearTimeout(_$State.randomTimer);
+		var randomTime = Math.floor(Math.random() * (3000 - 0));
+		randomTime += _$State.randomInterval;
+		_$State.randomTimer = setTimeout(_runRandomPhrase, randomTime);
+	}
 
-    // Show a new message whenever the URL fragment changes
-    $(window).on('hashchange', processMessageFromHash);
+	//PUBLIC *******************************
 
-    // Store the phrase list in the state
-    if ($State.phraselist !== undefined)
-		phraselist = phraselist.concat($State.phraselist);
-    $State.phraselist = phraselist;
+	var start = function () {
+		$('#interface').hide();
+		setTimeout(function () {
+			$('#boot-screen').fadeOut(2400);
+			$('#interface').fadeIn(2400);
+		}, 7000);
 
-    $(document).bind("mouseup", function(){
-        if ((Date.now() - $State.lastMouseUp) <= 500)
-        {
-            console.log("DblClick");
-            if (screenfull.enabled) {
-                screenfull.toggle();
-            }
-        }
-        $State.lastMouseUp = Date.now();
-    }).bind("click", runRandomPhrase);
+		// Cache the jquery things
+		_$State.triangle = $('#triangle');
+		_$State.text = $('#main p');
+		_$State.line = $('#main hr');
 
-    // And do a timed random phrase
-    randomTimePhrase();
-})
+		// Start the triangle blinking
+		_blinkTriangle();
 
-var blinkTriangle = function()
-{
-    // Stop blinking if samaritan is in action
-    if ($State.isText)
-        return;
-    $State.triangle.fadeTo(500, 0).fadeTo(500, 1, blinkTriangle);
-}
+		// URL parameter message
+		var urlMsg = _getUrlParameter('msg');
+		if (urlMsg !== undefined) {
+			urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join("'");
+			_$State.phraselist = [urlMsg];
+			setTimeout(function () {
+				write(urlMsg);
+			}, _$State.wordTime);
+		} else {
+			// Message from URL fragment
+			_processMessageFromHash();
+		}
 
-var runRandomPhrase = function()
-{
-    // Get a random phrase and execute samaritan
-    var randomIndex = 0;
-    if($State.phraselist.length > 1){
-        if(getUrlParameter('random') == 'false'){ //if random parameter is set to false
-            if($State.lastRandomIndex+1 != $State.phraselist.length){ //if it's not the last one
-                randomIndex = $State.lastRandomIndex+1;
-            }
-        } else {
-            randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
-            while (randomIndex == $State.lastRandomIndex)
-                randomIndex = Math.floor(Math.random() * ($State.phraselist.length - 0));
-        }
-    }
-    $State.lastRandomIndex = randomIndex;
-    executeSamaritan($State.phraselist[randomIndex]);
-}
+		// Show a new message whenever the URL fragment changes
+		$(window).on('hashchange', _processMessageFromHash);
 
-var randomTimePhrase = function()
-{
-    if ($State.randomTimer !== null)
-        clearTimeout($State.randomTimer);
-    var randomTime = Math.floor(Math.random() * (3000 - 0));
-    randomTime += $State.randomInterval;
-    $State.randomTimer = setTimeout( runRandomPhrase, randomTime);
-}
+		// Store the phrase list in the state
+		if (_$State.phraselist !== undefined)
+			phraselist = phraselist.concat(_$State.phraselist);
+		_$State.phraselist = phraselist;
 
-var executeSamaritan = function(phrase)
-{
-    if ($State.isText)
-        return;
+		$(document).bind("mouseup", function () {
+			if ((Date.now() - _$State.lastMouseUp) <= 500) {
+				console.log("DblClick");
+				if (screenfull.enabled) {
+					screenfull.toggle();
+				}
+			}
+			_$State.lastMouseUp = Date.now();
+		}).bind("click", _runRandomPhrase);
 
-    $State.isText = true
-    var phraseArray = phrase.split(" ");
-    // First, finish() the blink animation and
-    // scale down the marker triangle
-    $State.triangle.finish().animate({
-        'font-size': '0em',
-        'opacity': '1'
-    }, {
-        'duration': $State.wordAnim,
-        // Once animation triangle scale down is complete...
-        'done': function() {
-            var timeStart = 0;
-            // Create timers for each word
-            phraseArray.forEach(function (word, i) {
-                var wordTime = $State.wordTime;
-                if (word.length > 8)
-                    wordTime *= (word.length / 8);
-                setTimeout(function(){
-                    // Set the text to black, and put in the word
-                    // so that the length can be measured
-                    $State.text.addClass('hidden').html(word);
-                    // Then animate the line with extra padding
-                    $State.line.animate({
-                        'width' : ($State.text.textWidth() + 18) + "px"
-                    }, {
-                        'duration': $State.wordAnim,
-                        // When line starts anmating, set text to white again
-                        'start': $State.text.removeClass('hidden')
-                    })
-                }, (timeStart + $State.wordAnim));
-                timeStart += wordTime;
-            });
+		// And do a timed random phrase
+		_randomTimePhrase();
+	}; //end start function
 
-            // Set a final timer to hide text and show triangle
-            setTimeout(function(){
-                // Clear the text
-                $State.text.html("");
-                // Animate trinagle back in
-                $State.triangle.finish().animate({
-                    'font-size': '2em',
-                    'opacity': '1'
-                }, {
-                    'duration': $State.wordAnim,
-                    // Once complete, blink the triangle again and animate the line to original size
-                    'done': function(){
-                        $State.isText = false;
-                        randomTimePhrase();
+	var write = function (phrase) {
+		if (_$State.isText)
+			return;
 
-                        blinkTriangle();
-                        $State.line.animate({
-                            'width' : "30px"
-                        }, {
-                            'duration': $State.wordAnim,
-                            'start': $State.text.removeClass('hidden')
-                        })
-                    }
-                });
-            },
-            timeStart + $State.wordTime);
-        }
-    });
-}
+		_$State.isText = true
+		var phraseArray = phrase.split(" ");
+		// First, finish() the blink animation and
+		// scale down the marker triangle
+		_$State.triangle.finish().animate({
+			'font-size': '0em',
+			'opacity': '1'
+		}, {
+			'duration': _$State.wordAnim,
+			// Once animation triangle scale down is complete...
+			'done': function () {
+				var timeStart = 0;
+				// Create timers for each word
+				phraseArray.forEach(function (word, i) {
+					var wordTime = _$State.wordTime;
+					if (word.length > 8)
+						wordTime *= (word.length / 8);
+					setTimeout(function () {
+						// Set the text to black, and put in the word
+						// so that the length can be measured
+						_$State.text.addClass('hidden').html(word);
+						// Then animate the line with extra padding
+						_$State.line.animate({
+							'width': (_$State.text.textWidth() + 18) + "px"
+						}, {
+							'duration': _$State.wordAnim,
+							// When line starts anmating, set text to white again
+							'start': _$State.text.removeClass('hidden')
+						})
+					}, (timeStart + _$State.wordAnim));
+					timeStart += wordTime;
+				});
+
+				// Set a final timer to hide text and show triangle
+				setTimeout(function () {
+					// Clear the text
+					_$State.text.html("");
+					// Animate trinagle back in
+					_$State.triangle.finish().animate({
+						'font-size': '2em',
+						'opacity': '1'
+					}, {
+						'duration': _$State.wordAnim,
+						// Once complete, blink the triangle again and animate the line to original size
+						'done': function () {
+							_$State.isText = false;
+							_randomTimePhrase();
+
+							_blinkTriangle();
+							_$State.line.animate({
+								'width': "30px"
+							}, {
+								'duration': _$State.wordAnim,
+								'start': _$State.text.removeClass('hidden')
+							})
+						}
+					});
+				}, timeStart + _$State.wordTime);
+			}
+		})
+	}; // write function
+
+	return {
+		start: start,
+		write: write
+	};
+
+})();
