@@ -1,6 +1,10 @@
 [Samaritan 2.0!](https://rodrigograca31.github.io/Samaritan/)
 =========
 
+Features:
+* Speech recognition
+* Voice image search
+
 Technologies:
 * HTML
 * CSS

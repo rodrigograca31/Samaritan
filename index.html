@@ -9,6 +9,7 @@
 		<link rel="manifest" href="manifest.json">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="js/velocity.min.js"></script>
         <script type="text/javascript" src="js/screenfull.min.js"></script>
         <script type="text/javascript" src="js/phraselist.js"></script>
         <script type="text/javascript" src="js/samaritan.js"></script>
@@ -20,7 +21,39 @@
     <body>
 		<div id="boot-screen" style="margin: 0; height:100vh; pointer-events: none;">
 			<div id="boot-video"></div>
-			<script type="text/javascript" src="js/boot-youtube.js"></script>
+			<script>
+				var tag = document.createElement('script');
+				tag.src = "https://www.youtube.com/player_api";
+
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+				var player;
+
+				function onYouTubePlayerAPIReady() {
+					player = new YT.Player('boot-video', {
+						height: '100%',
+						width: '100%',
+						videoId: 'xHAzhkIt0z4',
+						playerVars: {
+							rel: 0,
+							autoplay: 1,
+							showinfo: 0,
+							iv_load_policy: 3,
+							controls: 0,
+							modestbranding: 1,
+							enablejsapi: 1
+						},
+						events: {
+							'onReady': onPlayerReady,
+						}
+					});
+				}
+
+				function onPlayerReady(event) {
+					event.target.mute();
+				}
+			</script>
 		</div>
         <div id="interface">
 			<div id="main">
