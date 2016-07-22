@@ -92,22 +92,6 @@ var samaritanModule = (function () {
 		// Start the triangle blinking
 		_blinkTriangle();
 
-		// URL parameter message
-		var urlMsg = _getUrlParameter('msg');
-		if (urlMsg !== undefined) {
-			urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join("'");
-			_$State.phraselist = [urlMsg];
-			setTimeout(function () {
-				write(urlMsg);
-			}, _$State.wordTime);
-		} else {
-			// Message from URL fragment
-			_processMessageFromHash();
-		}
-
-		// Show a new message whenever the URL fragment changes
-		$(window).on('hashchange', _processMessageFromHash);
-
 		// Store the phrase list in the state
 		if (_$State.phraselist !== undefined)
 			phraselist = phraselist.concat(_$State.phraselist);
@@ -115,7 +99,7 @@ var samaritanModule = (function () {
 
 		$(document).bind("mouseup", function () {
 			if ((Date.now() - _$State.lastMouseUp) <= 500) {
-				console.log("DblClick");
+				//console.log("DblClick");
 				if (screenfull.enabled) {
 					screenfull.toggle();
 				}
@@ -193,7 +177,7 @@ var samaritanModule = (function () {
 		})
 	}; // write function
 
-	var showImages = function (imagesURL){
+	var showImages = function (imagesURL) {
 		var baseSpeed = 8770;
 		var scrollBarInterval = 3000;
 		var imageInterval = 1337;
@@ -279,10 +263,24 @@ var samaritanModule = (function () {
 
 	}
 
+	var writeFromUrl = function () {
+		var urlMsg = _getUrlParameter('msg');
+		if (urlMsg !== undefined) {
+			urlMsg = urlMsg.split('%20').join(' ').split('%22').join('').split('%27').join("'");
+			write(urlMsg);
+		} else {
+			_processMessageFromHash();
+		}
+
+		// Show a new message whenever the URL fragment changes
+		$(window).on('hashchange', _processMessageFromHash);
+	}
+
 	return {
 		start: start,
 		write: write,
-		showImages: showImages
+		showImages: showImages,
+		writeFromUrl: writeFromUrl
 	};
 
 })();

@@ -60,6 +60,7 @@ var speechModule = (function () {
 	var start = function () {
 		if (annyang) {
 			setTimeout(function () {
+				samaritanModule.writeFromUrl();
 				samaritanModule.write('what are your commands ?');
 			}, 10000);
 
@@ -67,6 +68,7 @@ var speechModule = (function () {
 			annyang.start();
 		} else {
 			setTimeout(function () {
+				samaritanModule.writeFromUrl();
 				samaritanModule.write('speech recognition not supported in this browser !');
 			}, 10000);
 		}
