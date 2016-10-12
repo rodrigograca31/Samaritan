@@ -32,12 +32,40 @@ var speechModule = (function () {
 			samaritanModule.showImages(photosURL);
 		});
 	}
-
+	//Added Real Power of AI - with AI API from api.ai
+	var accessToken = "Client access token from api.ai";//Please use your own accessToken. 
+	var baseUrl = "https://api.api.ai/v1/";
+	var _send = function (phrase) {
+		console.log('Welcome to Samaritan ASI!');
+		console.log('processing send');
+		var text = phrase;
+		$.ajax({
+			type: "POST",
+			url: baseUrl + "query?v=20160910",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			headers: {
+				"Authorization": "Bearer " + accessToken
+			},
+			data: JSON.stringify({ q: text, lang: "en" }),
+			success: function(data) {
+				var txt = data.result.fulfillment.speech;
+				samaritanModule.write(txt);
+				console.log(txt);
+			},
+			error: function() {
+				samaritanModule.write('Internal Server Error');
+			}
+		});
+		samaritanModule.write('...');
+	};
+	//Added Real Power of AI - Ends Here
+	
 	var _commands = {
 		'locate the machine': _writeWrapper('Target can not be reached !'),
-		'where are you': _writeWrapper("I am everywhere , i am god"),
-		'who am I': _writeWrapper("Asset"),
-		'who are you': _writeWrapper('i am samaritan !'),
+		//'where are you': _writeWrapper("I am everywhere , i am god"),//implemented in AI
+		'who am I': _writeWrapper("Admin"),
+		//'who are you': _writeWrapper('i am samaritan !'),//implemented in AI
 		'find Finch': _writeWrapper('Locating Harold Finch ?'),
 		'yes': _writeWrapper('yes what ?'),
 		'no': _writeWrapper('ok then what is your suggestion ?'),
@@ -49,10 +77,8 @@ var speechModule = (function () {
 		'find (me) *name': _flickrSearch,
 		'search (for) *name': _flickrSearch,
 		'show (me) *name': _flickrSearch,
-		//repeats everything if it's not one of the above
-		'*phrase': function (phrase) {
-			samaritanModule.write(phrase);
-		}
+		//This is now handled by AI
+		'*phrase': _send
 	};
 
 	//PUBLIC **********************************
