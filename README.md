@@ -1,6 +1,26 @@
 [Samaritan 2.0!](https://rodrigograca31.github.io/Samaritan/)
 =========
 
+Available speech commands:
+```
+'locate the machine'
+'where are you'
+'who am I'
+'who are you'
+'find Finch'
+'yes'
+'no'
+'what are you'
+'turn off'
+'restart'
+'who created you'
+'who won'
+'find (me) *name'
+'search (for) *name'
+'show (me) *name'
+//repeats everything if it's not one of the above
+```
+
 Features:
 * Speech recognition
 * Voice image search
