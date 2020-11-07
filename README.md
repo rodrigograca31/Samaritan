@@ -30,8 +30,7 @@ Technologies:
 * CSS
 * JS
 
-Original author:
-Rodrigo Graça
+### Original author: [Rodrigo Graça](https://blog.rodrigograca.com/)
 
 Honorable mentions to:
 <br />
